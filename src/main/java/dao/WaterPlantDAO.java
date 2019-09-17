@@ -140,12 +140,12 @@ public class WaterPlantDAO implements IWaterPlantDAO {
 		
 		
 
-	public void updateCan(int totalCanAfterOrder) {
+	public void updateCan(int totalCanOrder) {
 		try {
 			con = ConnectionUtil.getConnection();
 			String sql = "update stock_details set stock_availability=? where stock_id=1";
 			PreparedStatement pst = con.prepareStatement(sql);
-			pst.setInt(1, totalCanAfterOrder);
+			pst.setInt(1, totalCanOrder);
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -176,6 +176,24 @@ public class WaterPlantDAO implements IWaterPlantDAO {
 			ConnectionUtil.close(con, pst);
 		}
 
+	}
+	
+	
+	public void updateCanByAdmin(int can) {
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "update stock_details set stock_availability=? where stock_id=1";
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setInt(1, can);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+
+		finally {
+			ConnectionUtil.close(con, pst);
+		}
 	}
 		
 	}

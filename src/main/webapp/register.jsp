@@ -5,6 +5,7 @@
 <meta charset="ISO-8859-1">
 <title>Register Page</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.min.js"></script>
 </head>
@@ -15,11 +16,14 @@
 
 <script>
 
+
+
+
 function validateName()
 {
-var name=document.getElementById("userNameId").value;
-var nameRegex=/^[A-Za-z]*$/;
-if(nameRegex.test(name))
+	var name=document.getElementById("userNameId").value;
+	var nameRegex=/^[A-Za-z]*$/;
+	if(nameRegex.test(name))
 	{
 	document.getElementById("nameError").innerHTML="";
 	}
@@ -45,8 +49,8 @@ else
 }
 function validatePassword()
 {
-var password=document.getElementById("userPasswordId").value;
-var passwordRegex=/^[A-Za-z0-9]*$/;
+	var password=document.getElementById("userPasswordId").value;
+	var passwordRegex=/^[A-Za-z0-9]*$/;
 if(passwordRegex.test(password))
 	{
 	document.getElementById("passwordError").innerHTML="";
@@ -57,6 +61,45 @@ else
 	
 	}
 }
+
+function validateAddress()
+{
+	var address=document.getElementById("userAddressId").value;
+	var addressRegex=/^[a-zA-Z0-9\s,'-]*$/;
+		
+	if(addressRegex.test(address))
+	{
+	document.getElementById("addressError").innerHTML="";
+	}
+else
+	{
+	document.getElementById("addressError").innerHTML="Invalid Address";
+	
+	}
+	
+	}
+function buttonEnable()
+{
+	var name=document.getElementById("userNameId").value;
+	var nameRegex=/^[A-Za-z]*$/;
+	var email=document.getElementById("userEmailId").value;
+	var emailRegex=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+	var password=document.getElementById("userPasswordId").value;
+	var passwordRegex=/^[A-Za-z0-9]*$/;
+	var address=document.getElementById("userAddressId").value;
+	var addressRegex=/^[a-zA-Z0-9\s,'-]*$/;
+
+	
+	if(nameRegex.test(name) && emailRegex.test(email) && passwordRegex.test(password) && addressRegex.test(address))
+		{
+		document.getElementById("registerBtnId").disabled=false;
+		}
+	else
+		{
+		document.getElementById("registerBtnId").disabled=true;
+		
+		}
+	}
 
 function registerServlet()
 {
@@ -80,7 +123,7 @@ function registerServlet()
     	{
     
     	alert("successfully registered");
-    	//window.location.href= "userLogin.jsp";
+    	window.location.href= "userLogin.jsp";
     	}
        
     });
@@ -89,17 +132,17 @@ function registerServlet()
 </script>
 <form onsubmit="registerServlet()">
 <label>Enter Name</label>
-<input type="text" id="userNameId" name="userName" onkeyup="validateName()"><span style="color:red" id="nameError"></span><br>
+<input type="text" id="userNameId" name="userName" onkeyup="validateName();buttonEnable();"><span style="color:red" id="nameError"></span><br>
 <label>Enter Email</label>
 
 <input type="email" id="userEmailId" name="userEmailName" onblur="validateEmail()"><span style="color:red" id="emailError"></span><br>
 
 <label>Enter Password</label>
-<input type="password" id="userPasswordId" name="userPasswordName" maxlength="8" onkeyup="validatePassword()"><span style="color:red" id="passwordError"></span><br>
+<input type="password" id="userPasswordId" name="userPasswordName" maxlength="8" onkeyup="validatePassword();buttonEnable();"><span style="color:red" id="passwordError"></span><br>
 <label>Enter Address</label>
-<textarea id="userAddressId" name="userAddressName"></textarea><br>
+<textarea id="userAddressId" name="userAddressName" onkeyup="validateAddress();buttonEnable();"></textarea><span style="color:red" id="addressError"></span><br>
 <input type="button" id="btnCancel" value="Cancel" class="btn btn-danger" onclick="window.location.href='index.jsp'">
-<input type="submit" id="registerBtnId" class="btn btn-success" value="Register">
+<input type="submit" id="registerBtnId" class="btn btn-success" disabled value="Register">
 </form>
 </body>
 </html>

@@ -10,7 +10,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-<a href="viewAvailableStock.jsp">View Stock</a><br>
+<a href="viewStockByAdmin.jsp">View Stock</a><br>
 <a href="adminUpdateStock.jsp">Update Stock</a>
 </body>
 </html>

@@ -1,0 +1,9 @@
+@charset "ISO-8859-1";
+input[type=submit]:disabled
+{
+	background-color: #cccccc;
+	color: #666666;
+}
+h1{
+	color: #FE2EF7;
+}

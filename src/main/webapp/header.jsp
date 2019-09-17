@@ -9,7 +9,7 @@
 <body>
 <header>
   <!-- Fixed navbar -->
-<nav class="navbar navbar-light" style="background-color: #008000;">  
+<nav class="navbar navbar-light" style="background-color: #F5A9F2;">  
   <a class="navbar-brand" href="#">Online Water Plant</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

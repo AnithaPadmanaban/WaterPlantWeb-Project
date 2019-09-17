@@ -40,6 +40,12 @@
   	<description></description>
   	<servlet-class>servlet.AdminLoginServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>UpdateStockServlet</servlet-name>
+  	<display-name>UpdateStockServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlet.UpdateStockServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>LoginServlet</servlet-name>
   	<url-pattern>/LoginServlet</url-pattern>
@@ -63,5 +69,9 @@
   <servlet-mapping>
   	<servlet-name>AdminLoginServlet</servlet-name>
   	<url-pattern>/AdminLoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UpdateStockServlet</servlet-name>
+  	<url-pattern>/UpdateStockServlet</url-pattern>
   </servlet-mapping>
 </web-app>

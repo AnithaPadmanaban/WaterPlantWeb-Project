@@ -33,7 +33,6 @@ function viewStock()
 <jsp:include page="header.jsp"></jsp:include>
 <form>
 <p>Available Stock</p>
-<input type="button" value="Cancel" class="btn btn-danger" onclick="window.location.href='userView.jsp'">
 
 <div id="stock-section">
        <table border="1" class="table table-condensed">
@@ -47,6 +46,8 @@ function viewStock()
            </tbody>
        </table>
    </div>
+   <input type="button" value="Cancel" class="btn btn-danger" onclick="window.location.href='userView.jsp'">
+   
 <script>
 viewStock();
 </script>

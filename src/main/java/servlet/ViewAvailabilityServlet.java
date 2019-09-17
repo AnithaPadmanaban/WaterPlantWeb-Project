@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import controller.StockController;
 import dao.WaterPlantDAO;
 import model.StockDetails;
 import service.UserService;
@@ -21,8 +22,10 @@ public class ViewAvailabilityServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	UserService userService = new UserService(); 
-	StockDetails stockDetails=null;
-	stockDetails=userService.viewAvailableStock();
+	StockDetails stockDetails=new StockDetails();
+	StockController stockController=new StockController();
+	stockDetails=stockController.viewStock();
+	//stockDetails=userService.viewAvailableStock();
 		
 	JsonObject obj = new JsonObject();
 	obj.addProperty("availability_stock", stockDetails.getStockAvailability());
