@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <script>
 function viewStock()
 {
@@ -16,12 +17,12 @@ function viewStock()
        var data = response;
        var content="";
        document.getElementById("stock").innerHTML="";
-       for(let stock of data){
+      
            content += "<tr>";
-           content += "<td>" + stock.cans_avail + "</td>";
-           content += "<td>" + stock.date.day+"-"+stock.date.month+"-"+stock.date.year + "</td>";
+           content += "<td>" + data.availability_stock + "</td>";
+           content += "<td>" + data.inserted_date +"</td>";
            content += "</tr>";
-       }
+      
        document.getElementById("stock").innerHTML = content;
    });
 }
@@ -31,8 +32,24 @@ function viewStock()
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 <form>
-<p>To see the stock available,press view button</p>
-<button class="btn btn-danger" onclick="window.location.href='userView.jsp'">
-<input type="submit" value="View" class="btn btn-success" onclick="viewStock()">
+<p>Available Stock</p>
+<input type="button" value="Cancel" class="btn btn-danger" onclick="window.location.href='userView.jsp'">
+
+<div id="stock-section">
+       <table border="1" class="table table-condensed">
+           <thead>
+               <tr>
+                   <th>Stock Availabilty</th>
+                   <th>Date</th>
+               </tr>
+           </thead>
+           <tbody id="stock">
+           </tbody>
+       </table>
+   </div>
+<script>
+viewStock();
+</script>
+
 </body>
 </html>

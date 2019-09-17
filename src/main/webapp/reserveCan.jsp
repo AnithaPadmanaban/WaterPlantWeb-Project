@@ -23,7 +23,7 @@ window.location.href = "userView.jsp";
 <label>Enter no of Can</label>
 <input type="text" id="reserveCanID" name="reserveCanName"><br>
 <input type="button" value="Cancel" class="btn btn-danger" onclick="window.location.href ='userView.jsp';">
-<input type="button" value="Submit"  class="btn btn-success">
+<input type="submit" value="Submit"  class="btn btn-success" onclick="window.location.href ='userView.jsp';">
 </form>
 </body>
 </html>

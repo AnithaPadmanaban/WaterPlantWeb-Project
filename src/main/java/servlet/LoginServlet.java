@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
+import controller.UserController;
 import model.User;
 import service.UserService;
 
@@ -16,30 +19,36 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String userEmail = request.getParameter("userEmailName");
-		String userPassword = request.getParameter("userPasswordName");
+		String userEmail = request.getParameter("email");
+		String userPassword = request.getParameter("password");
+		
 		User user = new User();
 		user.setEmail(userEmail);
 		user.setPassword(userPassword);
+		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 
 		try {
 			UserService userService = new UserService();
-			int userId = userService.loginProcess(user);
-
+			
+			UserController userController = new UserController(); 
+			String userValue=userController.login(userEmail,userPassword);
+			/*
+			 * System.out.println(userId); User userResult = new User();
+			 * 
+			 * userResult.setUserId(userId); String json = new Gson().toJson(userResult);
+			 * out.write(json); 
+			 
+			 */
 			HttpSession session = request.getSession();
-			session.setAttribute("USER_ID",userId);
-			if (userId!=0) {
-				System.out.println("Rght login");
-				response.sendRedirect("userView.jsp");
-			} else if (userId== 0) {
-				System.out.println("wrong login");
-
-				response.sendRedirect("index.jsp?message=Invalid Login Crendentials!!!");
-			}
+			session.setAttribute("USER_ID",userValue);
+			System.out.println("Id"+userValue);
+			out.write(userValue); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		out.flush();
 
 	}
 }

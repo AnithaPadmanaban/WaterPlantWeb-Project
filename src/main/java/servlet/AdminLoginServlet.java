@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.AdminController;
 import model.Admin;
 import model.User;
 import service.UserService;
@@ -18,26 +19,17 @@ public class AdminLoginServlet extends HttpServlet {
        
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String adminEmail=request.getParameter("adminEmailName");
-		String adminPassword=request.getParameter("adminPasswordName");
+		String adminEmail=request.getParameter("email");
+		String adminPassword=request.getParameter("password");
 		Admin admin = new Admin();
 		admin.setEmail(adminEmail);
 		admin.setPassword(adminPassword);
 		PrintWriter out=response.getWriter();
 		
-		   boolean isValidUser = false;
-		      try {
-		          UserService userService = new UserService ();
-		          isValidUser = userService.adminLoginProcess(admin);
-		      }catch(Exception e) {
-		          e.printStackTrace();
-		      }
-		      if(isValidUser) {
-		          response.sendRedirect("adminView.jsp");
-		      }
-		      else {
-		          response.sendRedirect("index.jsp?message=Invalid Login Crendentials!!!");
-		      }
+		 AdminController adminController = new AdminController();
+		 String value=adminController.adminLogin(admin);
+		 out.write(value);
+		 out.flush();
 	}
 
 	

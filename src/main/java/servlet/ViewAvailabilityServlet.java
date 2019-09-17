@@ -12,21 +12,26 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import dao.WaterPlantDAO;
+import model.StockDetails;
 import service.UserService;
 
 
 public class ViewAvailabilityServlet extends HttpServlet {
 	WaterPlantDAO waterPlantDAO = new WaterPlantDAO();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	UserService userService = new UserService(); 
-		int val=userService.viewAvailableStock();
+	StockDetails stockDetails=null;
+	stockDetails=userService.viewAvailableStock();
 		
 	JsonObject obj = new JsonObject();
-	obj.addProperty("Availabe Stock", val);
+	obj.addProperty("availability_stock", stockDetails.getStockAvailability());
+	obj.addProperty("inserted_date", stockDetails.getStockAddedDate().toString()
+			);
 		//Gson gson = new Gson();
        // String json = gson.toJson(val);
         PrintWriter out = response.getWriter();
-      //  out.println(obj.toString());
+       out.println(obj.toString());
 	}
 	
 }

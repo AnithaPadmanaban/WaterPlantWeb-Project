@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Admin;
-import model.CanStatus;
+import model.OrderCan;
 import model.User;
 import service.UserService;
 
@@ -16,22 +16,22 @@ public class OrderCanServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CanStatus canstatus = new CanStatus();
+		OrderCan orderCan = new OrderCan(); 
 		UserService userService = new UserService();
 		User user = new User();
 		try {
-			String canOrder = request.getParameter("orderCanName");
-
+			String canOrder = request.getParameter("can");
+			int can = Integer.parseInt(canOrder);
+			
 			HttpSession session = request.getSession(false);
-
 			Integer userId = (Integer) session.getAttribute("USER_ID");
 			System.out.println("User Id==>" + userId);
-			int can = Integer.parseInt(canOrder);
+			
 
 			user.setUserId(userId);
 
-			canstatus.setCanList(can);
-			userService.orderCan(user, canstatus);
+			orderCan.setCane_order(can);
+			userService.orderCan(user, orderCan);
 		} catch (Exception e) {
 			System.out.println("Error");
 		}

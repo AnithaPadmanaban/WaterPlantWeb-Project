@@ -4,10 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.sql.Date;
+import java.util.List;
 
 import connection.ConnectionUtil;
 import model.Admin;
-import model.CanStatus;
+import model.OrderCan;
+import model.ReserveCan;
+import model.StockDetails;
 import model.User;
 
 public class WaterPlantDAO implements IWaterPlantDAO {
@@ -26,7 +31,7 @@ public class WaterPlantDAO implements IWaterPlantDAO {
 			pst.setString(2, user.getPassword());
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				System.out.println("Invalid email row");
+				
 				 userId=rs.getInt("user_id");
 				
 			}
@@ -85,17 +90,22 @@ public class WaterPlantDAO implements IWaterPlantDAO {
 		}
 	}
 
-	public int viewStock() { /// method is used to view available stock from DB
+	public StockDetails viewStock() { /// method is used to view available stock from DB
 		int availableStock = 0;
+		StockDetails stockDetails = new StockDetails(); 
+		 
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "select stock_availability from stock_details";
+			String sql = "select * from stock_details";
 			PreparedStatement pst = con.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
 
 			while (rs.next()) {
 
-				availableStock = rs.getInt("stock_availability");
+				 stockDetails.setStockAvailability(rs.getInt("stock_availability"));
+				 Date date = rs.getDate("inserted_date");
+				 stockDetails.setStockAddedDate(date.toLocalDate());
+	               
 
 			}
 
@@ -105,18 +115,18 @@ public class WaterPlantDAO implements IWaterPlantDAO {
 		} finally {
 			ConnectionUtil.close(con, pst);
 		}
-		return availableStock;
+		return stockDetails;
 	}
 
 	
-	public void orderStock(User user, CanStatus can) { /// method is used to insert userid and can ordered in DB
+	public void orderStock(User user, OrderCan can) { /// method is used to insert userid and can ordered in DB
 
 		try {
 			con = ConnectionUtil.getConnection();
 			String sql = "insert into order_info(user_order_id,cane_order) values(?,?)";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, user.getUserId());
-			pst.setInt(2, can.getCanList());
+			pst.setInt(2, can.getCane_order());
 			int rows = pst.executeUpdate();
 			System.out.println(rows);
 
@@ -147,15 +157,17 @@ public class WaterPlantDAO implements IWaterPlantDAO {
 		}
 	}
 
-	public int reserveStock(User user, CanStatus canstatus) {
+	public void insertReserveStock(User user, ReserveCan reserveCan) {
 		try {
 			con = ConnectionUtil.getConnection();
 			String sql = "insert into reserve_info(user_reserve_id,cane_reserve) values(?,?)";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, user.getUserId());
-			pst.setInt(2, canstatus.getCanList());
+			pst.setInt(2, reserveCan.getCane_reserve());
 			int rows = pst.executeUpdate();
 			System.out.println(rows);
+			
+
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -163,7 +175,7 @@ public class WaterPlantDAO implements IWaterPlantDAO {
 		} finally {
 			ConnectionUtil.close(con, pst);
 		}
-		return 0;
+
 	}
 		
 	}

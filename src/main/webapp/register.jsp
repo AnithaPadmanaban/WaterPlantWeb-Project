@@ -6,6 +6,7 @@
 <title>Register Page</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.min.js"></script>
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
@@ -13,6 +14,7 @@
 
 
 <script>
+
 function validateName()
 {
 var name=document.getElementById("userNameId").value;
@@ -55,8 +57,37 @@ else
 	
 	}
 }
+
+function registerServlet()
+{
+	event.preventDefault();
+	var name = document.getElementById("userNameId").value;
+	var email=document.getElementById("userEmailId").value;
+	var password=document.getElementById("userPasswordId").value;
+	var address=document.getElementById("userAddressId").value;
+	
+	var formData = "name=" +name + "&email="+ email +"&password="+ password+"&address="+address;
+    var url = "http://localhost:8080/WaterCanWebApp/RegisterServlet?" + formData;
+    console.log(url);
+    $.get(url, function(response){
+    console.log(response);
+    var data= response;
+    
+    if ( data.errorMessage != null) {
+    	alert(data.errorMessage);
+    }
+    else
+    	{
+    
+    	alert("successfully registered");
+    	//window.location.href= "userLogin.jsp";
+    	}
+       
+    });
+	
+	}
 </script>
-<form action="RegisterServlet">
+<form onsubmit="registerServlet()">
 <label>Enter Name</label>
 <input type="text" id="userNameId" name="userName" onkeyup="validateName()"><span style="color:red" id="nameError"></span><br>
 <label>Enter Email</label>
@@ -68,7 +99,7 @@ else
 <label>Enter Address</label>
 <textarea id="userAddressId" name="userAddressName"></textarea><br>
 <input type="button" id="btnCancel" value="Cancel" class="btn btn-danger" onclick="window.location.href='index.jsp'">
-<input type="submit" id="registerBtnId" class="btn btn-success" onclick="window.location.href='index.jsp'" value="Register">
+<input type="submit" id="registerBtnId" class="btn btn-success" value="Register">
 </form>
 </body>
 </html>

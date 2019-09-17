@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.CanStatus;
+import model.ReserveCan;
 import model.User;
 import service.UserService;
 
@@ -16,7 +17,7 @@ public class ReserveCanServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		CanStatus canstatus = new CanStatus();
+		ReserveCan reserveCan = new ReserveCan();
 		UserService userService = new UserService();
 		User user = new User();
 		try {
@@ -29,9 +30,9 @@ public class ReserveCanServlet extends HttpServlet {
 			
 
 			user.setUserId(userId);
-
-			canstatus.setCanList(can);
-			int reserveId=userService.reserveCan(user, canstatus);
+			reserveCan.setCane_reserve(can);
+			
+			userService.reserveCanDetail(user, reserveCan);
 		} catch (Exception e) {
 			System.out.println("Error");
 		}

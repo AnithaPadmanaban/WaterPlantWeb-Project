@@ -10,17 +10,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-
-<script type="text/javascript">
-function addStcok()
-{
-alert("Added Successfully in DB");
-window.location.href = "index.jsp";
-}
-</script>
-<h1>Enter Number of can to be added in Database</h1>
-<label>Enter No of Can</label><br>
-<input type="text" id="adminCanID"><br>
-<input type="button" class="btn btn-success" value="Add Stock" onclick="addStcok()">
+<a href="viewAvailableStock.jsp">View Stock</a><br>
+<a href="adminUpdateStock.jsp">Update Stock</a>
 </body>
 </html>
